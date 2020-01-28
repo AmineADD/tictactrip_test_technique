@@ -85,14 +85,7 @@ async function cleanStr(str) {
   }
   return str;
 }
-//L'écoute sur le Port 2020
-server.listen(2020, (err, res) => {
-  if (err) {
-    console.log(err)
-  } else {
-    console.log(process.env.Message)
-  }
-});
+
 
 
 server.post('/api/login', (req, rep) => {
@@ -160,13 +153,8 @@ function verifyToekn(req, rep, next) {
 }
 
 
-
-
-
-
-/*
-process.env.PORT ||
-*/
+//Main Function
+ 
 async function justify(str) {
 
   var re = RegExp("(?:\\s|^)(.{1,80})(?=\\s|$)", "g");
@@ -195,6 +183,17 @@ async function justify(str) {
   finalResult.push(res[res.length - 1]);
   return finalResult.join('\n');
 }
+
+
+//L'écoute sur le Port 2020
+server.listen(process.env.PORT ||2020, (err, res) => {
+  if (err) {
+    console.log(err)
+  } else {
+    console.log(process.env.Message)
+  }
+});
+
 //Reset des limit une fois chaque jour
 
  var unefoisDay = 1000 * 60 * 60 * 24;
