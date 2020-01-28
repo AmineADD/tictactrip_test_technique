@@ -1,4 +1,5 @@
 
+//bibliothèques
 var express = require('express');
 const jwt = require('jsonwebtoken')
 var bodyParser = require('body-parser');
@@ -6,6 +7,9 @@ const cors = require('cors');
 const Pool = require('pg').Pool
 var url = require('url');
 var server = express();
+
+
+//Configuration Server
 server.use(bodyParser.urlencoded({
   limit: process.env.limit, extended: true
 }));
@@ -13,7 +17,7 @@ server.use(express.json());
 server.use(bodyParser.json({ limit: process.env.limit }));
 server.use(cors());
 
-
+//configuration BD
 
 const pool = new Pool({
   user: process.env.user,
@@ -27,7 +31,7 @@ const pool = new Pool({
 });
 
 
-
+//LES ROUTES
 
 
 server.post('/api/justify', verifyToekn, (req, rep) => {
@@ -63,7 +67,7 @@ server.post('/api/justify', verifyToekn, (req, rep) => {
 
   });
 })
-
+//les fonctions de la justification de textes
 function countWords(text) {
   return text.split(' ').length;
 }
@@ -81,7 +85,7 @@ async function cleanStr(str) {
   }
   return str;
 }
-
+//L'écoute sur le Port 2020
 server.listen(2020, (err, res) => {
   if (err) {
     console.log(err)
@@ -191,7 +195,7 @@ async function justify(str) {
   finalResult.push(res[res.length - 1]);
   return finalResult.join('\n');
 }
-
+//Reset des limit une fois chaque jour
 
  var unefoisDay = 1000 * 60 * 60 * 24;
  
